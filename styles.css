@@ -1,0 +1,614 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f6f2;
+  --panel: #ffffff;
+  --text: #1d2420;
+  --muted: #68736d;
+  --line: #d8ded9;
+  --green: #197344;
+  --green-dark: #105631;
+  --red: #b63a30;
+  --blue: #265f94;
+  --yellow: #946a16;
+  --soft-red: #f8e7e4;
+  --soft-green: #e7f3eb;
+  --soft-blue: #e8f0f8;
+  --soft-yellow: #fbf1d7;
+  --shadow: 0 16px 34px rgba(29, 36, 32, 0.10);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button,
+input,
+select {
+  font: inherit;
+  letter-spacing: 0;
+}
+
+button {
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(38, 95, 148, 0.25);
+  outline-offset: 2px;
+}
+
+.app {
+  width: min(1080px, 100%);
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: 18px;
+}
+
+.app-header p {
+  margin: 0 0 6px;
+  color: var(--green);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.view-tabs {
+  display: flex;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.tab-button {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+}
+
+.tab-button.is-active {
+  border-color: var(--blue);
+  background: var(--soft-blue);
+  color: var(--blue);
+}
+
+.screen {
+  display: none;
+}
+
+.screen.is-active {
+  display: block;
+}
+
+.entry-row,
+.save-row {
+  display: grid;
+  gap: 10px;
+  align-items: end;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.entry-row {
+  grid-template-columns: minmax(220px, 1fr) minmax(140px, 180px) minmax(100px, 140px) 140px;
+  margin-bottom: 16px;
+}
+
+.save-row {
+  grid-template-columns: minmax(130px, 180px) minmax(220px, 1fr) 190px;
+}
+
+label span {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.product-field {
+  position: relative;
+}
+
+input,
+select {
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0 12px;
+  background: #fbfcfb;
+  color: var(--text);
+}
+
+.entry-row button,
+.save-row button {
+  min-height: 44px;
+  background: var(--green);
+  color: #fff;
+}
+
+.entry-row button:hover,
+.save-row button:hover {
+  background: var(--green-dark);
+}
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: none;
+  max-height: 220px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.suggestions.is-open {
+  display: grid;
+}
+
+.suggestion-button {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 42px;
+  padding: 9px 12px;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+}
+
+.suggestion-button:hover,
+.suggestion-button.is-active {
+  background: #eef3ef;
+}
+
+.suggestion-button strong,
+.suggestion-button span {
+  overflow-wrap: anywhere;
+}
+
+.suggestion-button span {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.list-box,
+.compare-card,
+.finish-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.list-head,
+.item-row {
+  display: grid;
+  grid-template-columns: minmax(170px, 1fr) minmax(120px, 150px) minmax(70px, 90px) minmax(120px, 150px) 92px;
+  gap: 10px;
+  align-items: center;
+}
+
+.list-head {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  background: #eef3ef;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.items-list {
+  min-height: 82px;
+}
+
+.items-list:empty::before {
+  content: "Nenhum item adicionado ainda.";
+  display: block;
+  padding: 26px 14px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.item-row {
+  min-height: 58px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.item-name,
+.item-total {
+  overflow-wrap: anywhere;
+}
+
+.item-price,
+.item-quantity,
+.item-total {
+  white-space: nowrap;
+}
+
+.remove-button {
+  min-height: 34px;
+  background: var(--soft-red);
+  color: var(--red);
+}
+
+.remove-button:hover {
+  background: #f3d5d0;
+}
+
+.subtotal-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 22px;
+  min-height: 70px;
+  padding: 16px 14px;
+  background: #f9faf8;
+}
+
+.subtotal-row span {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.subtotal-row strong {
+  min-width: 160px;
+  font-size: 1.6rem;
+  text-align: right;
+}
+
+.clear-button {
+  display: block;
+  min-height: 42px;
+  margin: 14px 0 0 auto;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+}
+
+.clear-button:hover,
+.saved-card button:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.compare-card,
+.finish-card {
+  margin-bottom: 16px;
+  padding: 16px;
+}
+
+.finish-card {
+  margin-top: 16px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: 12px;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 1.22rem;
+}
+
+.section-title p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.compare-selects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.comparison-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.comparison-summary span {
+  min-height: 54px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f9faf8;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.comparison-table {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.comparison-head,
+.comparison-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) minmax(150px, 180px) minmax(150px, 180px) minmax(110px, 140px) minmax(130px, 160px);
+  gap: 10px;
+  align-items: center;
+}
+
+.comparison-head {
+  padding: 12px;
+  background: #eef3ef;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.comparison-row {
+  min-height: 56px;
+  padding: 11px 12px;
+  border-top: 1px solid var(--line);
+}
+
+.comparison-row span {
+  overflow-wrap: anywhere;
+}
+
+.status-up {
+  color: var(--red);
+  font-weight: 800;
+}
+
+.status-down {
+  color: var(--green);
+  font-weight: 800;
+}
+
+.status-same {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.status-new {
+  color: var(--blue);
+  font-weight: 800;
+}
+
+.status-missing {
+  color: var(--yellow);
+  font-weight: 800;
+}
+
+.saved-purchases {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.saved-card {
+  display: grid;
+  gap: 8px;
+  min-height: 150px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfb;
+}
+
+.saved-card h3,
+.saved-card p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.saved-card p {
+  color: var(--muted);
+}
+
+.saved-card strong {
+  font-size: 1.25rem;
+}
+
+.saved-card button {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+}
+
+.empty-state {
+  margin: 0;
+  padding: 18px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  max-width: min(360px, calc(100vw - 40px));
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--text);
+  color: #fff;
+  box-shadow: var(--shadow);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .app-header,
+  .section-title {
+    display: grid;
+    align-items: start;
+  }
+
+  .view-tabs {
+    width: 100%;
+  }
+
+  .tab-button {
+    flex: 1;
+  }
+
+  .entry-row,
+  .save-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .entry-row .product-field,
+  .entry-row button,
+  .save-row label:nth-child(2),
+  .save-row button {
+    grid-column: 1 / -1;
+  }
+
+  .comparison-summary,
+  .compare-selects {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-head {
+    display: none;
+  }
+
+  .comparison-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .comparison-row span:nth-child(2)::before {
+    content: "Compra A: ";
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .comparison-row span:nth-child(3)::before {
+    content: "Compra B: ";
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .comparison-row span:nth-child(4)::before {
+    content: "Diferenca: ";
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .comparison-row span:nth-child(5)::before {
+    content: "Status: ";
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .list-head {
+    display: none;
+  }
+
+  .item-row {
+    grid-template-columns: 1fr 92px;
+    gap: 8px 12px;
+  }
+
+  .item-price::before {
+    content: "Unitario: ";
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .item-quantity::before {
+    content: "Qtd.: ";
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .item-total::before {
+    content: "Total: ";
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .remove-button {
+    grid-row: 1 / span 3;
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 520px) {
+  .app {
+    padding: 16px;
+  }
+
+  .entry-row,
+  .save-row {
+    grid-template-columns: 1fr;
+  }
+
+  .entry-row .product-field,
+  .entry-row button,
+  .save-row label:nth-child(2),
+  .save-row button {
+    grid-column: auto;
+  }
+
+  .subtotal-row {
+    justify-content: space-between;
+  }
+
+  .subtotal-row strong {
+    min-width: 0;
+    font-size: 1.35rem;
+  }
+}

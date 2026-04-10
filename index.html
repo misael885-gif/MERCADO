@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mercado</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="app-header">
+      <div>
+        <p>Mercado</p>
+        <h1>Lista simples de compras</h1>
+      </div>
+
+      <nav class="view-tabs" aria-label="Telas do app">
+        <button class="tab-button is-active" type="button" data-view="shopping">Lista</button>
+        <button class="tab-button" type="button" data-view="compare">Comparar</button>
+      </nav>
+    </header>
+
+    <section id="shoppingScreen" class="screen is-active" aria-label="Lista atual">
+      <form id="itemForm" class="entry-row" autocomplete="off">
+        <div class="product-field">
+          <label for="productInput"><span>Produto</span></label>
+          <input id="productInput" type="text" placeholder="Digite o item" aria-autocomplete="list" aria-controls="suggestionsList" required>
+          <div id="suggestionsList" class="suggestions" role="listbox"></div>
+        </div>
+
+        <label>
+          <span>Valor unitario</span>
+          <input id="priceInput" type="text" inputmode="decimal" placeholder="0,00" required>
+        </label>
+
+        <label>
+          <span>Quantidade</span>
+          <input id="quantityInput" type="number" min="1" step="1" value="1" required>
+        </label>
+
+        <button type="submit">Adicionar</button>
+      </form>
+
+      <section class="list-box" aria-label="Lista de compras">
+        <div class="list-head">
+          <span>Produto</span>
+          <span>Valor unitario</span>
+          <span>Qtd.</span>
+          <span>Total</span>
+          <span></span>
+        </div>
+
+        <div id="itemsList" class="items-list"></div>
+
+        <footer class="subtotal-row">
+          <span>Subtotal</span>
+          <strong id="subtotalValue">R$ 0,00</strong>
+        </footer>
+      </section>
+
+      <section class="finish-card">
+        <div class="section-title">
+          <h2>Finalizar compra</h2>
+          <p>Salve o nome do mercado e todos os itens desta lista.</p>
+        </div>
+
+        <form id="finishPurchaseForm" class="save-row" autocomplete="off">
+          <label>
+            <span>Mes</span>
+            <input id="finishMonth" type="month" required>
+          </label>
+
+          <label>
+            <span>Nome do mercado</span>
+            <input id="finishMarketName" type="text" placeholder="Ex.: Atacadao" required>
+          </label>
+
+          <button type="submit">Salvar mercado e itens</button>
+        </form>
+      </section>
+
+      <button id="clearButton" class="clear-button" type="button">Limpar lista</button>
+    </section>
+
+    <section id="compareScreen" class="screen" aria-label="Historico e comparacao">
+      <section class="compare-card">
+        <div class="section-title">
+          <h2>Salvar compra</h2>
+          <p>Salve a lista atual com mes e mercado para comparar depois.</p>
+        </div>
+
+        <form id="purchaseForm" class="save-row" autocomplete="off">
+          <label>
+            <span>Mes</span>
+            <input id="purchaseMonth" type="month" required>
+          </label>
+
+          <label>
+            <span>Nome do mercado</span>
+            <input id="marketName" type="text" placeholder="Ex.: Atacadao" required>
+          </label>
+
+          <button type="submit">Salvar compra atual</button>
+        </form>
+      </section>
+
+      <section class="compare-card">
+        <div class="section-title">
+          <h2>Comparar compras</h2>
+          <p>Escolha duas compras salvas para ver as diferencas na mesma tela.</p>
+        </div>
+
+        <div class="compare-selects">
+          <label>
+            <span>Compra A</span>
+            <select id="comparisonA"></select>
+          </label>
+
+          <label>
+            <span>Compra B</span>
+            <select id="comparisonB"></select>
+          </label>
+        </div>
+
+        <div id="comparisonResult" class="comparison-result"></div>
+      </section>
+
+      <section class="compare-card">
+        <div class="section-title">
+          <h2>Compras salvas</h2>
+          <p>Registros guardados neste navegador.</p>
+        </div>
+
+        <div id="savedPurchases" class="saved-purchases"></div>
+      </section>
+    </section>
+  </main>
+
+  <template id="itemTemplate">
+    <article class="item-row">
+      <strong class="item-name"></strong>
+      <span class="item-price"></span>
+      <span class="item-quantity"></span>
+      <strong class="item-total"></strong>
+      <button class="remove-button" type="button">Remover</button>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
