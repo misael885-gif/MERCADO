@@ -702,7 +702,7 @@ itemForm.addEventListener("submit", (event) => {
 
   addItem(name, price, quantity);
   itemForm.reset();
-  quantityInput.value = 1;
+  quantityInput.value = 0;
   hideSuggestions();
   productInput.focus();
 });
